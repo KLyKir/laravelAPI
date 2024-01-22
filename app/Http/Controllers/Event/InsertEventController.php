@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\User;
+use App\Services\EventService;
 
 class InsertEventController extends Controller
 {
@@ -14,7 +15,7 @@ class InsertEventController extends Controller
         return view('event.add_update');
     }
 
-    public function insert(\Illuminate\Http\Request $request){
+    public function insert(\Illuminate\Http\Request $request, EventService $eventService){
         $data = $request->validate([
             'title' => ['required', 'string', 'max:10'],
             'notes' => ['required', 'string'],
@@ -22,17 +23,9 @@ class InsertEventController extends Controller
             'dt_end' => ['required', 'date', 'after:dt_start'],
             'user' => ['numeric']
         ]);
-        if($data){
-            $event = new Event();
-            $event->title = $data['title'];
-            $event->notes = $data['notes'];
-            $event->dt_start = $data['dt_start'];
-            $event->dt_end = $data['dt_end'];
-            $event->user_id =$data['user'];
-            $event->save();
+        if($eventService->createEvent($data)){
             $events = Event::get();
             return view('event.index', ['events' => $events]);
         }
-
     }
 }

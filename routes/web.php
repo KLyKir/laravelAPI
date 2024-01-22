@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function() {
         Route::any('/addUser', [\App\Http\Controllers\User\InsertUserController::class, 'insert'])->name('user.add');
         Route::get('/delete/{id}', \App\Http\Controllers\User\DeleteUserController::class)->name('user.delete');
         Route::get('/update/{id}', [\App\Http\Controllers\User\UpdateUserController::class, 'index'])->name('user.update');
-        Route::any('/updateUser/{id}', [\App\Http\Controllers\User\UpdateUserController::class, 'update'])->name('user.update.info');
+        Route::any('/updateUser', [\App\Http\Controllers\User\UpdateUserController::class, 'update'])->name('user.update.info');
         Route::get('/event/{id}', [\App\Http\Controllers\User\InsertUserEventController::class, 'index'])->name('user.show.event');
         Route::any('/addEvent/{id}', [\App\Http\Controllers\User\InsertUserEventController::class, 'insert'])->name('user.insert.event');
         Route::get('/showEvents/{id}', \App\Http\Controllers\User\ShowUserEventsController::class)->name('user.events');

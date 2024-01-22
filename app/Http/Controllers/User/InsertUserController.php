@@ -24,6 +24,7 @@ class InsertUserController extends Controller
             $user->name = $data['name'];
             $user->email = $data['email'];
             $user->password = $data['password'];
+            $user->role_id = 1;
             $user->save();
             $users = User::get();
             return view('user.index', ['users' => $users]);
